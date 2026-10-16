@@ -1,0 +1,59 @@
+syntax = "proto3";
+
+package vessel.extensions.v1;
+option go_package = "github.com/TheModCraft-TMC/Vessel-HQ/sdk/go/proto/v1;extensionv1";
+
+// Scoped API for explicitly approved extension service identities.
+service ExtensionGateway {
+  // Explicit machine-only storage grants; no native UI trust is implied.
+  rpc GetNote(GetNoteRequest) returns (ExtensionNote);
+  rpc PutNote(PutNoteRequest) returns (ExtensionNote);
+  // Returns the current approval for the mTLS certificate package identity.
+  rpc GetRegistration(GetRegistrationRequest) returns (GetRegistrationResponse);
+  // Requires an environment-scoped grant and unattended service-read approval.
+  rpc GetEnvironment(GetEnvironmentRequest) returns (GetEnvironmentResponse);
+  // Host-internal delegated operation. External services cannot obtain its lease.
+  rpc GetStackNetwork(GetStackNetworkRequest) returns (GetStackNetworkResponse);
+  // Host-internal stack labels and Docker byte counters; requires a user lease.
+  rpc GetStackTraffic(GetStackNetworkRequest) returns (GetStackNetworkResponse);
+}
+message GetEnvironmentRequest {
+  int64 environment_id = 1;
+}
+// Intentionally excludes URLs, credentials, snapshots and provider-native DTOs.
+message GetEnvironmentResponse {
+  int64 id = 1;
+  string name = 2;
+  int32 type = 3;
+  int32 status = 4;
+}
+message GetRegistrationRequest {}
+message Permission {
+  string capability = 1;
+  repeated int64 environment_ids = 2;
+  repeated int64 stack_ids = 3;
+}
+message GetRegistrationResponse {
+  string extension_id = 1;
+  string package_digest = 2;
+  int64 revision = 3;
+  string status = 4;
+  repeated Permission grants = 5;
+  bool runtime_available = 6;
+}
+
+message GetStackNetworkRequest { int64 environment_id = 1; int64 stack_id = 2; }
+message Network { string id = 1; string name = 2; string driver = 3; string scope = 4; bool internal = 5; }
+message NetworkAttachment { string network_id = 1; }
+message Workload { string id = 1; string name = 2; string kind = 3; string state = 4; repeated NetworkAttachment networks = 5; }
+message GetStackNetworkResponse { int64 environment_id = 1; int64 stack_id = 2; string name = 3; repeated Network networks = 4; repeated Workload workloads = 5; TrafficSnapshot traffic = 6; }
+
+message TrafficRouter { string id = 1; string protocol = 2; string workload_id = 3; string rule = 4; string service = 5; repeated string entry_points = 6; repeated string middlewares = 7; bool tls = 8; }
+message RoutingService { string id = 1; string protocol = 2; string workload_id = 3; int32 port = 4; string scheme = 5; }
+message TrafficMiddleware { string id = 1; string protocol = 2; string workload_id = 3; repeated string types = 4; map<string,string> settings = 5; bool redacted = 6; }
+message NetworkCounter { string workload_id = 1; uint64 received_bytes = 2; uint64 sent_bytes = 3; bool available = 4; string reason = 5; }
+message TrafficSnapshot { string collected_at = 1; repeated TrafficRouter routers = 2; repeated RoutingService services = 3; repeated TrafficMiddleware middlewares = 4; repeated NetworkCounter counters = 5; repeated string warnings = 6; }
+
+message GetNoteRequest { int64 revision = 1; }
+message PutNoteRequest { int64 revision = 1; int64 version = 2; string text = 3; }
+message ExtensionNote { int64 version = 1; string text = 2; }

@@ -1,0 +1,47 @@
+name: Extension SDK
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  sdk:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        go: ['1.25.x', '1.26.x']
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version: ${{ matrix.go }}
+          cache-dependency-path: go.sum
+      - name: Verify independent SDK and examples
+        env:
+          GOWORK: 'off'
+        run: |
+          go test -race ./...
+          go vet ./...
+          for arch in amd64 arm64; do
+            for example in environment-summary persistent-notes operator-client; do
+              CGO_ENABLED=0 GOOS=linux GOARCH="$arch" go build -mod=readonly -trimpath -o "/tmp/$example-$arch" "./examples/$example"
+            done
+          done
+      - name: Verify generated contract
+        if: matrix.go == '1.26.x'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y protobuf-compiler
+          go install google.golang.org/protobuf/cmd/protoc-gen-go@v1.36.11
+          go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@v1.5.1
+          ./generate.sh --check
+      - name: Package source
+        if: matrix.go == '1.26.x'
+        run: python3 scripts/package-source.py --out /tmp/vessel-extension-sdk.tar.gz
+      - uses: actions/upload-artifact@v4
+        if: matrix.go == '1.26.x'
+        with:
+          name: vessel-extension-sdk-source
+          path: /tmp/vessel-extension-sdk.tar.gz

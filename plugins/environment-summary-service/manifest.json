@@ -1,0 +1,36 @@
+{
+  "id": "environment-summary-service",
+  "name": "Environment summary with Go service",
+  "version": "0.1.0",
+  "description": "Native UI plus a Linux Go backend executable. Upload does not execute it.",
+  "apiVersion": "v1",
+  "packageDigest": "sha256:REPLACE_AFTER_BUILD",
+  "permissions": [
+    {
+      "capability": "ui.native",
+      "environmentIds": []
+    },
+    {
+      "capability": "environments.read",
+      "environmentIds": [
+        1
+      ]
+    }
+  ],
+  "ui": {
+    "entry": "ui/index.tsx",
+    "slots": [
+      {
+        "id": "overview",
+        "title": "Environment summary",
+        "slot": "extension.page"
+      }
+    ]
+  },
+  "backend": {
+    "type": "executable",
+    "entrypoints": {
+      "linux-amd64": "backend/linux-amd64/extension"
+    }
+  }
+}

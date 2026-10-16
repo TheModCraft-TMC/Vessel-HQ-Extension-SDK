@@ -1,0 +1,40 @@
+{
+  "id": "persistent-notes",
+  "name": "Persistent notes",
+  "version": "1.1.0",
+  "description": "Write-back example: save extension-owned notes in Vessel with conflict detection and transactional audit.",
+  "apiVersion": "v1",
+  "packageDigest": "sha256:4f8412f4c00a671a88a3ea806aef79572b6c44ff0ccb40ae232c727bd7751ad1",
+  "permissions": [
+    {
+      "capability": "ui.native",
+      "environmentIds": []
+    },
+    {
+      "capability": "storage.read",
+      "environmentIds": []
+    },
+    {
+      "capability": "storage.write",
+      "environmentIds": []
+    },
+    {
+      "capability": "storage.service.read",
+      "environmentIds": []
+    },
+    {
+      "capability": "storage.service.write",
+      "environmentIds": []
+    }
+  ],
+  "ui": {
+    "entry": "ui/index.tsx",
+    "slots": [
+      {
+        "id": "notes-page",
+        "title": "Extension notes",
+        "slot": "extension.page"
+      }
+    ]
+  }
+}

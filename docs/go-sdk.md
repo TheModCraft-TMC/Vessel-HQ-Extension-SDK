@@ -13,7 +13,7 @@ The SDK has its own module version, separate from the Vessel application version
 go get github.com/TheModCraft-TMC/Vessel-HQ/sdk/go@v0.1.0-beta.1
 ```
 
-The repository tag is `sdk/go/v0.1.0-beta.1`. GitHub prerelease assets also contain
+The existing immutable Vessel repository tag is `sdk/go/v0.1.0-beta.1`. Its GitHub prerelease assets also contain
 the public SDK source archive and Linux amd64/arm64 example executables. The SDK
 is experimental; review the capability and lifecycle limits below before use.
 See the [prerelease guide](https://github.com/TheModCraft-TMC/Vessel-HQ/blob/feature/native-extensions-prerelease/docs/releases/native-extensions-prerelease.md).
@@ -30,9 +30,7 @@ go mod tidy
 ```
 
 Add the import and code before running `go mod tidy`, so Go retains the dependency.
-An SDK release uses a separate `sdk/go/vX.Y.Z` repository tag; Vessel's
-`RELEASE_VERSION` remains the application version. Publication and tagging are
-separate release steps. There is no need to import the full backend module.
+The already published beta.1 uses the original Vessel submodule tag. A future standalone release needs an explicitly configured canonical remote, reviewed module identity and corresponding tag scheme; it must not inherit the old subdirectory tag scheme automatically. Vessel's `RELEASE_VERSION` remains the application version. There is no need to import the full backend module.
 
 ```go
 package main
@@ -203,7 +201,7 @@ separate platform work.
 
 ## Develop and verify
 
-From the repository root (works with the backend-only local workspace):
+From this standalone SDK project root:
 
 ```sh
 GOWORK=off go test -race ./...

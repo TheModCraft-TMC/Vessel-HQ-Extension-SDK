@@ -11,7 +11,7 @@ go mod edit -require=github.com/TheModCraft-TMC/Vessel-HQ/sdk/go@v0.1.0-beta.1
 go mod edit -replace=github.com/TheModCraft-TMC/Vessel-HQ/sdk/go=/Users/themodcraft/GolandProjects/vesselhq-extension-sdk
 ```
 
-Add your SDK imports before `go mod tidy`. See [the Go SDK guide](docs/go-sdk.md) for API examples, mTLS identities, scoped read permissions, extension-owned note writes, conflicts and Unix socket transport. Go 1.25 or newer is required.
+Add your SDK imports before `go mod tidy`. See [the Go SDK guide](docs/go-sdk.md) for API examples, mTLS identities, scoped read permissions, extension-owned note writes, conflicts and Unix socket transport. Go 1.25 or newer, Node.js 24.21.0 and system tar are required.
 
 ## Layout
 
@@ -33,7 +33,8 @@ GOWORK=off go vet ./...
 GOWORK=off go build ./...
 # Pinned protobuf generators are documented in docs/go-sdk.md.
 ./generate.sh --check
-python3 scripts/package-source.py --out /tmp/vessel-extension-sdk.tar.gz
+node --test scripts/package-source.test.mjs
+node scripts/package-source.mjs --out /tmp/vessel-extension-sdk.tar.gz
 ```
 
 Simple UI plugins compile inside the trusted Vessel console, rather than running an independent web server. Their type-only `@/core/native-extensions/sdk` imports bind to the host contract. Keep `ui/sdk.ts` aligned with the host when changing that contract. Package them using the host's policy-enforcing builder:

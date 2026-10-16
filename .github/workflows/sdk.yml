@@ -14,6 +14,9 @@ jobs:
         go: ['1.25.x', '1.26.x']
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24.21.0
       - uses: actions/setup-go@v5
         with:
           go-version: ${{ matrix.go }}
@@ -37,9 +40,12 @@ jobs:
           go install google.golang.org/protobuf/cmd/protoc-gen-go@v1.36.11
           go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@v1.5.1
           ./generate.sh --check
+      - name: Verify public source packaging
+        if: matrix.go == '1.26.x'
+        run: node --test scripts/package-source.test.mjs
       - name: Package source
         if: matrix.go == '1.26.x'
-        run: python3 scripts/package-source.py --out /tmp/vessel-extension-sdk.tar.gz
+        run: node scripts/package-source.mjs --out /tmp/vessel-extension-sdk.tar.gz
       - uses: actions/upload-artifact@v4
         if: matrix.go == '1.26.x'
         with:

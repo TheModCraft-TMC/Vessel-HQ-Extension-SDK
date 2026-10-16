@@ -231,4 +231,4 @@ The `--check` mode generates into a temporary directory and compares the result,
 ignoring only the informational protoc version line. The schema keeps the same
 `vessel.extensions.v1` wire service and field numbers used by the original host.
 
-Package this workspace with `python3 scripts/package-source.py --out /tmp/vessel-extension-sdk.tar.gz`. It first builds the independent Go module and includes only the public SDK, schema, types, simple plugin sources, documentation and tooling. It excludes credentials, local IDE state and build output. Package simple plugins using the commands in the root README.
+Package this workspace with `node scripts/package-source.mjs --out /tmp/vessel-extension-sdk.tar.gz`. It first builds the independent Go module and includes only the public SDK, schema, types, simple plugin sources, documentation and tooling. It excludes credentials, local IDE state and build output. Package simple plugins using the commands in the root README.

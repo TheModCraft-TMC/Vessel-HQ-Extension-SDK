@@ -4,7 +4,7 @@ Independent workspace for the Go gRPC SDK, public protobuf contract, native UI t
 
 ## Current distribution identity
 
-The verified published module remains `github.com/TheModCraft-TMC/Vessel-HQ/sdk/go@v0.1.0-beta.1`. Moving these sources does not relocate that immutable release. The configured Git remote is `https://github.com/GruenerNinja/vesselhq-extension-sdk.git`; its existing initial commit and remote were preserved during extraction. That remote does not change the already published Go module identity. Until a separately reviewed module release is published from this project, use a local replacement:
+The verified published module remains `github.com/TheModCraft-TMC/Vessel-HQ/sdk/go@v0.1.0-beta.1`. Moving these sources does not relocate that immutable release. The configured Git remote is `https://github.com/TheModCraft-TMC/Vessel-HQ-Extension-SDK`; its existing initial commit and remote were preserved during extraction. That remote does not change the already published Go module identity. Until a separately reviewed module release is published from this project, use a local replacement:
 
 ```sh
 go mod edit -require=github.com/TheModCraft-TMC/Vessel-HQ/sdk/go@v0.1.0-beta.1

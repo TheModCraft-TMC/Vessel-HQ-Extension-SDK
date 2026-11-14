@@ -4,9 +4,9 @@ Independent workspace for the Go gRPC SDK, public protobuf contract, native UI t
 
 ## Current distribution identity
 
-The next release candidate is `github.com/TheModCraft-TMC/Vessel-HQ-Extension-SDK@v0.1.0-beta.2`, published from this repository using the root tag `v0.1.0-beta.2`. The maintainer authorized the independent module path during issue #299. The historical `github.com/TheModCraft-TMC/Vessel-HQ/sdk/go@v0.1.0-beta.1` remains immutable and does not gain this release's RPCs. Until beta.2 is published, joint local validation uses an explicit temporary Go workspace containing this SDK and Vessel's backend; do not commit a machine-specific replacement to Vessel.
+The current prerelease is `github.com/TheModCraft-TMC/Vessel-HQ-Extension-SDK@v0.1.0-beta.2`, published from this repository using the root tag `v0.1.0-beta.2`. The maintainer authorized the independent module path during issue #299. The historical `github.com/TheModCraft-TMC/Vessel-HQ/sdk/go@v0.1.0-beta.1` remains immutable and does not gain this release's RPCs. Vessel consumes the checksum-verified published module without a sibling checkout. Joint validation of unpublished changes may use an explicit temporary workspace; never commit a machine-specific replacement.
 
-After publication:
+Install the published prerelease:
 
 ```sh
 go get github.com/TheModCraft-TMC/Vessel-HQ-Extension-SDK@v0.1.0-beta.2

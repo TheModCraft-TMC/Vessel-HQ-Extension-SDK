@@ -30,7 +30,7 @@ go mod tidy
 ```
 
 Add the import and code before running `go mod tidy`, so Go retains the dependency.
-The already published beta.1 uses the original Vessel submodule tag. The authorized standalone module uses the independent repository path and root tag `v0.1.0-beta.2`; the old subdirectory tag scheme is retained only for historical beta.1 releases. Beta.2 is currently prepared locally; publication is separate. Vessel's `RELEASE_VERSION` remains the application version. There is no need to import the full backend module.
+The already published beta.1 uses the original Vessel submodule tag. The authorized standalone module uses the independent repository path and root tag `v0.1.0-beta.2`; the old subdirectory tag scheme is retained only for historical beta.1 releases. Beta.2 is published from the independent repository and resolves through the public Go proxy and checksum service. Vessel's `RELEASE_VERSION` remains the application version. There is no need to import the full backend module.
 
 ```go
 package main

@@ -13,10 +13,10 @@ jobs:
       matrix:
         go: ['1.25.x', '1.26.x']
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - uses: actions/setup-node@v4
         with:
-          node-version: 24.21.0
+          node-version: 24.22.0
       - uses: actions/setup-go@v5
         with:
           go-version: ${{ matrix.go }}

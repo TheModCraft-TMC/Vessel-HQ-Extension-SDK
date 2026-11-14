@@ -4,11 +4,12 @@ Independent workspace for the Go gRPC SDK, public protobuf contract, native UI t
 
 ## Current distribution identity
 
-The verified published module remains `github.com/TheModCraft-TMC/Vessel-HQ/sdk/go@v0.1.0-beta.1`. Moving these sources does not relocate that immutable release. The configured Git remote is `https://github.com/TheModCraft-TMC/Vessel-HQ-Extension-SDK`; its existing initial commit and remote were preserved during extraction. That remote does not change the already published Go module identity. Until a separately reviewed module release is published from this project, use a local replacement:
+The next release candidate is `github.com/TheModCraft-TMC/Vessel-HQ-Extension-SDK@v0.1.0-beta.2`, published from this repository using the root tag `v0.1.0-beta.2`. The maintainer authorized the independent module path during issue #299. The historical `github.com/TheModCraft-TMC/Vessel-HQ/sdk/go@v0.1.0-beta.1` remains immutable and does not gain this release's RPCs. Until beta.2 is published, joint local validation uses an explicit temporary Go workspace containing this SDK and Vessel's backend; do not commit a machine-specific replacement to Vessel.
+
+After publication:
 
 ```sh
-go mod edit -require=github.com/TheModCraft-TMC/Vessel-HQ/sdk/go@v0.1.0-beta.1
-go mod edit -replace=github.com/TheModCraft-TMC/Vessel-HQ/sdk/go=/Users/themodcraft/GolandProjects/vesselhq-extension-sdk
+go get github.com/TheModCraft-TMC/Vessel-HQ-Extension-SDK@v0.1.0-beta.2
 ```
 
 Add your SDK imports before `go mod tidy`. See [the Go SDK guide](docs/go-sdk.md) for API examples, mTLS identities, scoped read permissions, extension-owned note writes, conflicts and Unix socket transport. Go 1.25 or newer, Node.js 24.21.0 and system tar are required.
@@ -49,6 +50,6 @@ The helper builds backend executables with this standalone SDK, recalculates the
 
 ## Runtime limits
 
-Use one shared outbound mTLS TCP gateway or a private shared Unix socket; no published port is required per stack, and extension containers never need the Docker socket. Both transports retain package-bound TLS 1.3 identity and fresh authorization on every RPC. Typed environment reads and extension-owned note compare-and-swap writes are implemented. Infrastructure mutations, managed service startup/reverse routing and production certificate lifecycle remain host work.
+Use one shared outbound mTLS TCP gateway or a private shared Unix socket; no published port is required per stack, and extension containers never need the Docker socket. Both transports retain package-bound TLS 1.3 identity and fresh authorization on every RPC. Typed environment reads, extension-owned note compare-and-swap writes and separately granted settings reads are implemented. Settings secrets require an additional explicit machine grant. See [beta.2 settings](docs/settings-beta.2.md). Infrastructure mutations, managed service startup/reverse routing and production certificate lifecycle remain host work.
 
 [Vessel HQ host and operator documentation](https://github.com/TheModCraft-TMC/Vessel-HQ/blob/feature/native-extensions-prerelease/docs/native-extensions.md).

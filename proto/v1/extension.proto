@@ -1,10 +1,12 @@
 syntax = "proto3";
 
 package vessel.extensions.v1;
-option go_package = "github.com/TheModCraft-TMC/Vessel-HQ/sdk/go/proto/v1;extensionv1";
+option go_package = "github.com/TheModCraft-TMC/Vessel-HQ-Extension-SDK/proto/v1;extensionv1";
 
 // Scoped API for explicitly approved extension service identities.
 service ExtensionGateway {
+  // Package-bound machine configuration. Secrets require a separate grant.
+  rpc GetSettings(GetSettingsRequest) returns (ExtensionSettings);
   // Explicit machine-only storage grants; no native UI trust is implied.
   rpc GetNote(GetNoteRequest) returns (ExtensionNote);
   rpc PutNote(PutNoteRequest) returns (ExtensionNote);
@@ -57,3 +59,6 @@ message TrafficSnapshot { string collected_at = 1; repeated TrafficRouter router
 message GetNoteRequest { int64 revision = 1; }
 message PutNoteRequest { int64 revision = 1; int64 version = 2; string text = 3; }
 message ExtensionNote { int64 version = 1; string text = 2; }
+
+message GetSettingsRequest { int64 revision = 1; bool include_secrets = 2; }
+message ExtensionSettings { int64 version = 1; map<string,string> values = 2; map<string,string> secrets = 3; }

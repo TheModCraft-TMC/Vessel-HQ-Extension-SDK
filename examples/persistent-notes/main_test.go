@@ -5,8 +5,8 @@ import (
 	"context"
 	"testing"
 
-	extension "github.com/TheModCraft-TMC/Vessel-HQ/sdk/go"
-	v1 "github.com/TheModCraft-TMC/Vessel-HQ/sdk/go/proto/v1"
+	extension "github.com/TheModCraft-TMC/Vessel-HQ-Extension-SDK"
+	v1 "github.com/TheModCraft-TMC/Vessel-HQ-Extension-SDK/proto/v1"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 )

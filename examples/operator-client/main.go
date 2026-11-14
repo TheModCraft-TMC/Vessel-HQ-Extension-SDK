@@ -11,7 +11,7 @@ import (
 	"os"
 	"time"
 
-	extension "github.com/TheModCraft-TMC/Vessel-HQ/sdk/go"
+	extension "github.com/TheModCraft-TMC/Vessel-HQ-Extension-SDK"
 	"google.golang.org/protobuf/encoding/protojson"
 )
 

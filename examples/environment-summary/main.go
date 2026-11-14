@@ -10,7 +10,7 @@ import (
 	"os/signal"
 	"syscall"
 
-	extension "github.com/TheModCraft-TMC/Vessel-HQ/sdk/go"
+	extension "github.com/TheModCraft-TMC/Vessel-HQ-Extension-SDK"
 )
 
 func main() {

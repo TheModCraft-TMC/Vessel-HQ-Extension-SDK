@@ -14,7 +14,7 @@ import (
 	"testing"
 	"time"
 
-	extensionv1 "github.com/TheModCraft-TMC/Vessel-HQ/sdk/go/proto/v1"
+	extensionv1 "github.com/TheModCraft-TMC/Vessel-HQ-Extension-SDK/proto/v1"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials"
 	"google.golang.org/grpc/peer"

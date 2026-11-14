@@ -1222,6 +1222,118 @@ func (x *ExtensionNote) GetText() string {
 	return ""
 }
 
+type GetSettingsRequest struct {
+	state          protoimpl.MessageState `protogen:"open.v1"`
+	Revision       int64                  `protobuf:"varint,1,opt,name=revision,proto3" json:"revision,omitempty"`
+	IncludeSecrets bool                   `protobuf:"varint,2,opt,name=include_secrets,json=includeSecrets,proto3" json:"include_secrets,omitempty"`
+	unknownFields  protoimpl.UnknownFields
+	sizeCache      protoimpl.SizeCache
+}
+
+func (x *GetSettingsRequest) Reset() {
+	*x = GetSettingsRequest{}
+	mi := &file_proto_v1_extension_proto_msgTypes[18]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetSettingsRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetSettingsRequest) ProtoMessage() {}
+
+func (x *GetSettingsRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_v1_extension_proto_msgTypes[18]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetSettingsRequest.ProtoReflect.Descriptor instead.
+func (*GetSettingsRequest) Descriptor() ([]byte, []int) {
+	return file_proto_v1_extension_proto_rawDescGZIP(), []int{18}
+}
+
+func (x *GetSettingsRequest) GetRevision() int64 {
+	if x != nil {
+		return x.Revision
+	}
+	return 0
+}
+
+func (x *GetSettingsRequest) GetIncludeSecrets() bool {
+	if x != nil {
+		return x.IncludeSecrets
+	}
+	return false
+}
+
+type ExtensionSettings struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Version       int64                  `protobuf:"varint,1,opt,name=version,proto3" json:"version,omitempty"`
+	Values        map[string]string      `protobuf:"bytes,2,rep,name=values,proto3" json:"values,omitempty" protobuf_key:"bytes,1,opt,name=key" protobuf_val:"bytes,2,opt,name=value"`
+	Secrets       map[string]string      `protobuf:"bytes,3,rep,name=secrets,proto3" json:"secrets,omitempty" protobuf_key:"bytes,1,opt,name=key" protobuf_val:"bytes,2,opt,name=value"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ExtensionSettings) Reset() {
+	*x = ExtensionSettings{}
+	mi := &file_proto_v1_extension_proto_msgTypes[19]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ExtensionSettings) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ExtensionSettings) ProtoMessage() {}
+
+func (x *ExtensionSettings) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_v1_extension_proto_msgTypes[19]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ExtensionSettings.ProtoReflect.Descriptor instead.
+func (*ExtensionSettings) Descriptor() ([]byte, []int) {
+	return file_proto_v1_extension_proto_rawDescGZIP(), []int{19}
+}
+
+func (x *ExtensionSettings) GetVersion() int64 {
+	if x != nil {
+		return x.Version
+	}
+	return 0
+}
+
+func (x *ExtensionSettings) GetValues() map[string]string {
+	if x != nil {
+		return x.Values
+	}
+	return nil
+}
+
+func (x *ExtensionSettings) GetSecrets() map[string]string {
+	if x != nil {
+		return x.Secrets
+	}
+	return nil
+}
+
 var File_proto_v1_extension_proto protoreflect.FileDescriptor
 
 const file_proto_v1_extension_proto_rawDesc = "" +
@@ -1325,14 +1437,28 @@ const file_proto_v1_extension_proto_rawDesc = "" +
 	"\x04text\x18\x03 \x01(\tR\x04text\"=\n" +
 	"\rExtensionNote\x12\x18\n" +
 	"\aversion\x18\x01 \x01(\x03R\aversion\x12\x12\n" +
-	"\x04text\x18\x02 \x01(\tR\x04text2\xfb\x04\n" +
-	"\x10ExtensionGateway\x12T\n" +
+	"\x04text\x18\x02 \x01(\tR\x04text\"Y\n" +
+	"\x12GetSettingsRequest\x12\x1a\n" +
+	"\brevision\x18\x01 \x01(\x03R\brevision\x12'\n" +
+	"\x0finclude_secrets\x18\x02 \x01(\bR\x0eincludeSecrets\"\xc1\x02\n" +
+	"\x11ExtensionSettings\x12\x18\n" +
+	"\aversion\x18\x01 \x01(\x03R\aversion\x12K\n" +
+	"\x06values\x18\x02 \x03(\v23.vessel.extensions.v1.ExtensionSettings.ValuesEntryR\x06values\x12N\n" +
+	"\asecrets\x18\x03 \x03(\v24.vessel.extensions.v1.ExtensionSettings.SecretsEntryR\asecrets\x1a9\n" +
+	"\vValuesEntry\x12\x10\n" +
+	"\x03key\x18\x01 \x01(\tR\x03key\x12\x14\n" +
+	"\x05value\x18\x02 \x01(\tR\x05value:\x028\x01\x1a:\n" +
+	"\fSecretsEntry\x12\x10\n" +
+	"\x03key\x18\x01 \x01(\tR\x03key\x12\x14\n" +
+	"\x05value\x18\x02 \x01(\tR\x05value:\x028\x012\xdd\x05\n" +
+	"\x10ExtensionGateway\x12`\n" +
+	"\vGetSettings\x12(.vessel.extensions.v1.GetSettingsRequest\x1a'.vessel.extensions.v1.ExtensionSettings\x12T\n" +
 	"\aGetNote\x12$.vessel.extensions.v1.GetNoteRequest\x1a#.vessel.extensions.v1.ExtensionNote\x12T\n" +
 	"\aPutNote\x12$.vessel.extensions.v1.PutNoteRequest\x1a#.vessel.extensions.v1.ExtensionNote\x12n\n" +
 	"\x0fGetRegistration\x12,.vessel.extensions.v1.GetRegistrationRequest\x1a-.vessel.extensions.v1.GetRegistrationResponse\x12k\n" +
 	"\x0eGetEnvironment\x12+.vessel.extensions.v1.GetEnvironmentRequest\x1a,.vessel.extensions.v1.GetEnvironmentResponse\x12n\n" +
 	"\x0fGetStackNetwork\x12,.vessel.extensions.v1.GetStackNetworkRequest\x1a-.vessel.extensions.v1.GetStackNetworkResponse\x12n\n" +
-	"\x0fGetStackTraffic\x12,.vessel.extensions.v1.GetStackNetworkRequest\x1a-.vessel.extensions.v1.GetStackNetworkResponseBBZ@github.com/TheModCraft-TMC/Vessel-HQ/sdk/go/proto/v1;extensionv1b\x06proto3"
+	"\x0fGetStackTraffic\x12,.vessel.extensions.v1.GetStackNetworkRequest\x1a-.vessel.extensions.v1.GetStackNetworkResponseBIZGgithub.com/TheModCraft-TMC/Vessel-HQ-Extension-SDK/proto/v1;extensionv1b\x06proto3"
 
 var (
 	file_proto_v1_extension_proto_rawDescOnce sync.Once
@@ -1346,7 +1472,7 @@ func file_proto_v1_extension_proto_rawDescGZIP() []byte {
 	return file_proto_v1_extension_proto_rawDescData
 }
 
-var file_proto_v1_extension_proto_msgTypes = make([]protoimpl.MessageInfo, 19)
+var file_proto_v1_extension_proto_msgTypes = make([]protoimpl.MessageInfo, 23)
 var file_proto_v1_extension_proto_goTypes = []any{
 	(*GetEnvironmentRequest)(nil),   // 0: vessel.extensions.v1.GetEnvironmentRequest
 	(*GetEnvironmentResponse)(nil),  // 1: vessel.extensions.v1.GetEnvironmentResponse
@@ -1366,7 +1492,11 @@ var file_proto_v1_extension_proto_goTypes = []any{
 	(*GetNoteRequest)(nil),          // 15: vessel.extensions.v1.GetNoteRequest
 	(*PutNoteRequest)(nil),          // 16: vessel.extensions.v1.PutNoteRequest
 	(*ExtensionNote)(nil),           // 17: vessel.extensions.v1.ExtensionNote
-	nil,                             // 18: vessel.extensions.v1.TrafficMiddleware.SettingsEntry
+	(*GetSettingsRequest)(nil),      // 18: vessel.extensions.v1.GetSettingsRequest
+	(*ExtensionSettings)(nil),       // 19: vessel.extensions.v1.ExtensionSettings
+	nil,                             // 20: vessel.extensions.v1.TrafficMiddleware.SettingsEntry
+	nil,                             // 21: vessel.extensions.v1.ExtensionSettings.ValuesEntry
+	nil,                             // 22: vessel.extensions.v1.ExtensionSettings.SecretsEntry
 }
 var file_proto_v1_extension_proto_depIdxs = []int32{
 	3,  // 0: vessel.extensions.v1.GetRegistrationResponse.grants:type_name -> vessel.extensions.v1.Permission
@@ -1374,28 +1504,32 @@ var file_proto_v1_extension_proto_depIdxs = []int32{
 	6,  // 2: vessel.extensions.v1.GetStackNetworkResponse.networks:type_name -> vessel.extensions.v1.Network
 	8,  // 3: vessel.extensions.v1.GetStackNetworkResponse.workloads:type_name -> vessel.extensions.v1.Workload
 	14, // 4: vessel.extensions.v1.GetStackNetworkResponse.traffic:type_name -> vessel.extensions.v1.TrafficSnapshot
-	18, // 5: vessel.extensions.v1.TrafficMiddleware.settings:type_name -> vessel.extensions.v1.TrafficMiddleware.SettingsEntry
+	20, // 5: vessel.extensions.v1.TrafficMiddleware.settings:type_name -> vessel.extensions.v1.TrafficMiddleware.SettingsEntry
 	10, // 6: vessel.extensions.v1.TrafficSnapshot.routers:type_name -> vessel.extensions.v1.TrafficRouter
 	11, // 7: vessel.extensions.v1.TrafficSnapshot.services:type_name -> vessel.extensions.v1.RoutingService
 	12, // 8: vessel.extensions.v1.TrafficSnapshot.middlewares:type_name -> vessel.extensions.v1.TrafficMiddleware
 	13, // 9: vessel.extensions.v1.TrafficSnapshot.counters:type_name -> vessel.extensions.v1.NetworkCounter
-	15, // 10: vessel.extensions.v1.ExtensionGateway.GetNote:input_type -> vessel.extensions.v1.GetNoteRequest
-	16, // 11: vessel.extensions.v1.ExtensionGateway.PutNote:input_type -> vessel.extensions.v1.PutNoteRequest
-	2,  // 12: vessel.extensions.v1.ExtensionGateway.GetRegistration:input_type -> vessel.extensions.v1.GetRegistrationRequest
-	0,  // 13: vessel.extensions.v1.ExtensionGateway.GetEnvironment:input_type -> vessel.extensions.v1.GetEnvironmentRequest
-	5,  // 14: vessel.extensions.v1.ExtensionGateway.GetStackNetwork:input_type -> vessel.extensions.v1.GetStackNetworkRequest
-	5,  // 15: vessel.extensions.v1.ExtensionGateway.GetStackTraffic:input_type -> vessel.extensions.v1.GetStackNetworkRequest
-	17, // 16: vessel.extensions.v1.ExtensionGateway.GetNote:output_type -> vessel.extensions.v1.ExtensionNote
-	17, // 17: vessel.extensions.v1.ExtensionGateway.PutNote:output_type -> vessel.extensions.v1.ExtensionNote
-	4,  // 18: vessel.extensions.v1.ExtensionGateway.GetRegistration:output_type -> vessel.extensions.v1.GetRegistrationResponse
-	1,  // 19: vessel.extensions.v1.ExtensionGateway.GetEnvironment:output_type -> vessel.extensions.v1.GetEnvironmentResponse
-	9,  // 20: vessel.extensions.v1.ExtensionGateway.GetStackNetwork:output_type -> vessel.extensions.v1.GetStackNetworkResponse
-	9,  // 21: vessel.extensions.v1.ExtensionGateway.GetStackTraffic:output_type -> vessel.extensions.v1.GetStackNetworkResponse
-	16, // [16:22] is the sub-list for method output_type
-	10, // [10:16] is the sub-list for method input_type
-	10, // [10:10] is the sub-list for extension type_name
-	10, // [10:10] is the sub-list for extension extendee
-	0,  // [0:10] is the sub-list for field type_name
+	21, // 10: vessel.extensions.v1.ExtensionSettings.values:type_name -> vessel.extensions.v1.ExtensionSettings.ValuesEntry
+	22, // 11: vessel.extensions.v1.ExtensionSettings.secrets:type_name -> vessel.extensions.v1.ExtensionSettings.SecretsEntry
+	18, // 12: vessel.extensions.v1.ExtensionGateway.GetSettings:input_type -> vessel.extensions.v1.GetSettingsRequest
+	15, // 13: vessel.extensions.v1.ExtensionGateway.GetNote:input_type -> vessel.extensions.v1.GetNoteRequest
+	16, // 14: vessel.extensions.v1.ExtensionGateway.PutNote:input_type -> vessel.extensions.v1.PutNoteRequest
+	2,  // 15: vessel.extensions.v1.ExtensionGateway.GetRegistration:input_type -> vessel.extensions.v1.GetRegistrationRequest
+	0,  // 16: vessel.extensions.v1.ExtensionGateway.GetEnvironment:input_type -> vessel.extensions.v1.GetEnvironmentRequest
+	5,  // 17: vessel.extensions.v1.ExtensionGateway.GetStackNetwork:input_type -> vessel.extensions.v1.GetStackNetworkRequest
+	5,  // 18: vessel.extensions.v1.ExtensionGateway.GetStackTraffic:input_type -> vessel.extensions.v1.GetStackNetworkRequest
+	19, // 19: vessel.extensions.v1.ExtensionGateway.GetSettings:output_type -> vessel.extensions.v1.ExtensionSettings
+	17, // 20: vessel.extensions.v1.ExtensionGateway.GetNote:output_type -> vessel.extensions.v1.ExtensionNote
+	17, // 21: vessel.extensions.v1.ExtensionGateway.PutNote:output_type -> vessel.extensions.v1.ExtensionNote
+	4,  // 22: vessel.extensions.v1.ExtensionGateway.GetRegistration:output_type -> vessel.extensions.v1.GetRegistrationResponse
+	1,  // 23: vessel.extensions.v1.ExtensionGateway.GetEnvironment:output_type -> vessel.extensions.v1.GetEnvironmentResponse
+	9,  // 24: vessel.extensions.v1.ExtensionGateway.GetStackNetwork:output_type -> vessel.extensions.v1.GetStackNetworkResponse
+	9,  // 25: vessel.extensions.v1.ExtensionGateway.GetStackTraffic:output_type -> vessel.extensions.v1.GetStackNetworkResponse
+	19, // [19:26] is the sub-list for method output_type
+	12, // [12:19] is the sub-list for method input_type
+	12, // [12:12] is the sub-list for extension type_name
+	12, // [12:12] is the sub-list for extension extendee
+	0,  // [0:12] is the sub-list for field type_name
 }
 
 func init() { file_proto_v1_extension_proto_init() }
@@ -1409,7 +1543,7 @@ func file_proto_v1_extension_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_proto_v1_extension_proto_rawDesc), len(file_proto_v1_extension_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   19,
+			NumMessages:   23,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

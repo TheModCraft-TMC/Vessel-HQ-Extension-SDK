@@ -19,6 +19,7 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
+	ExtensionGateway_GetSettings_FullMethodName     = "/vessel.extensions.v1.ExtensionGateway/GetSettings"
 	ExtensionGateway_GetNote_FullMethodName         = "/vessel.extensions.v1.ExtensionGateway/GetNote"
 	ExtensionGateway_PutNote_FullMethodName         = "/vessel.extensions.v1.ExtensionGateway/PutNote"
 	ExtensionGateway_GetRegistration_FullMethodName = "/vessel.extensions.v1.ExtensionGateway/GetRegistration"
@@ -33,6 +34,8 @@ const (
 //
 // Scoped API for explicitly approved extension service identities.
 type ExtensionGatewayClient interface {
+	// Package-bound machine configuration. Secrets require a separate grant.
+	GetSettings(ctx context.Context, in *GetSettingsRequest, opts ...grpc.CallOption) (*ExtensionSettings, error)
 	// Explicit machine-only storage grants; no native UI trust is implied.
 	GetNote(ctx context.Context, in *GetNoteRequest, opts ...grpc.CallOption) (*ExtensionNote, error)
 	PutNote(ctx context.Context, in *PutNoteRequest, opts ...grpc.CallOption) (*ExtensionNote, error)
@@ -52,6 +55,16 @@ type extensionGatewayClient struct {
 
 func NewExtensionGatewayClient(cc grpc.ClientConnInterface) ExtensionGatewayClient {
 	return &extensionGatewayClient{cc}
+}
+
+func (c *extensionGatewayClient) GetSettings(ctx context.Context, in *GetSettingsRequest, opts ...grpc.CallOption) (*ExtensionSettings, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(ExtensionSettings)
+	err := c.cc.Invoke(ctx, ExtensionGateway_GetSettings_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
 }
 
 func (c *extensionGatewayClient) GetNote(ctx context.Context, in *GetNoteRequest, opts ...grpc.CallOption) (*ExtensionNote, error) {
@@ -120,6 +133,8 @@ func (c *extensionGatewayClient) GetStackTraffic(ctx context.Context, in *GetSta
 //
 // Scoped API for explicitly approved extension service identities.
 type ExtensionGatewayServer interface {
+	// Package-bound machine configuration. Secrets require a separate grant.
+	GetSettings(context.Context, *GetSettingsRequest) (*ExtensionSettings, error)
 	// Explicit machine-only storage grants; no native UI trust is implied.
 	GetNote(context.Context, *GetNoteRequest) (*ExtensionNote, error)
 	PutNote(context.Context, *PutNoteRequest) (*ExtensionNote, error)
@@ -141,6 +156,9 @@ type ExtensionGatewayServer interface {
 // pointer dereference when methods are called.
 type UnimplementedExtensionGatewayServer struct{}
 
+func (UnimplementedExtensionGatewayServer) GetSettings(context.Context, *GetSettingsRequest) (*ExtensionSettings, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetSettings not implemented")
+}
 func (UnimplementedExtensionGatewayServer) GetNote(context.Context, *GetNoteRequest) (*ExtensionNote, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetNote not implemented")
 }
@@ -178,6 +196,24 @@ func RegisterExtensionGatewayServer(s grpc.ServiceRegistrar, srv ExtensionGatewa
 		t.testEmbeddedByValue()
 	}
 	s.RegisterService(&ExtensionGateway_ServiceDesc, srv)
+}
+
+func _ExtensionGateway_GetSettings_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetSettingsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ExtensionGatewayServer).GetSettings(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ExtensionGateway_GetSettings_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ExtensionGatewayServer).GetSettings(ctx, req.(*GetSettingsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
 }
 
 func _ExtensionGateway_GetNote_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
@@ -295,6 +331,10 @@ var ExtensionGateway_ServiceDesc = grpc.ServiceDesc{
 	ServiceName: "vessel.extensions.v1.ExtensionGateway",
 	HandlerType: (*ExtensionGatewayServer)(nil),
 	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "GetSettings",
+			Handler:    _ExtensionGateway_GetSettings_Handler,
+		},
 		{
 			MethodName: "GetNote",
 			Handler:    _ExtensionGateway_GetNote_Handler,

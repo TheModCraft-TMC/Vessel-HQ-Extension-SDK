@@ -1,7 +1,7 @@
 # Vessel HQ Go extension SDK
 
 Experimental SDK for independent extension services. Module:
-`github.com/TheModCraft-TMC/Vessel-HQ/sdk/go`; package name: `extension`.
+`github.com/TheModCraft-TMC/Vessel-HQ-Extension-SDK`; package name: `extension`.
 Requires Go 1.25 or newer. It depends on gRPC/protobuf and their transport
 dependencies, with no dependency on Vessel's backend, Docker or Kubernetes.
 
@@ -10,7 +10,7 @@ dependencies, with no dependency on Vessel's backend, Docker or Kubernetes.
 The SDK has its own module version, separate from the Vessel application version:
 
 ```sh
-go get github.com/TheModCraft-TMC/Vessel-HQ/sdk/go@v0.1.0-beta.1
+go get github.com/TheModCraft-TMC/Vessel-HQ-Extension-SDK@v0.1.0-beta.2
 ```
 
 The existing immutable Vessel repository tag is `sdk/go/v0.1.0-beta.1`. Its GitHub prerelease assets also contain
@@ -24,13 +24,13 @@ To test unpublished changes in a separate extension project:
 
 ```sh
 go mod init example.com/my-vessel-extension
-go mod edit -require=github.com/TheModCraft-TMC/Vessel-HQ/sdk/go@v0.0.0
-go mod edit -replace=github.com/TheModCraft-TMC/Vessel-HQ/sdk/go=/absolute/path/to/vesselhq-extension-sdk
+go mod edit -require=github.com/TheModCraft-TMC/Vessel-HQ-Extension-SDK@v0.0.0
+go mod edit -replace=github.com/TheModCraft-TMC/Vessel-HQ-Extension-SDK=/absolute/path/to/vesselhq-extension-sdk
 go mod tidy
 ```
 
 Add the import and code before running `go mod tidy`, so Go retains the dependency.
-The already published beta.1 uses the original Vessel submodule tag. A future standalone release needs an explicitly configured canonical remote, reviewed module identity and corresponding tag scheme; it must not inherit the old subdirectory tag scheme automatically. Vessel's `RELEASE_VERSION` remains the application version. There is no need to import the full backend module.
+The already published beta.1 uses the original Vessel submodule tag. The authorized standalone module uses the independent repository path and root tag `v0.1.0-beta.2`; the old subdirectory tag scheme is retained only for historical beta.1 releases. Beta.2 is currently prepared locally; publication is separate. Vessel's `RELEASE_VERSION` remains the application version. There is no need to import the full backend module.
 
 ```go
 package main
@@ -39,7 +39,7 @@ import (
     "context"
     "log"
 
-    extension "github.com/TheModCraft-TMC/Vessel-HQ/sdk/go"
+    extension "github.com/TheModCraft-TMC/Vessel-HQ-Extension-SDK"
     "google.golang.org/grpc/codes"
     "google.golang.org/grpc/status"
 )

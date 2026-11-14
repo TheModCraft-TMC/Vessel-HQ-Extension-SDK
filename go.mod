@@ -1,4 +1,4 @@
-module github.com/TheModCraft-TMC/Vessel-HQ/sdk/go
+module github.com/TheModCraft-TMC/Vessel-HQ-Extension-SDK
 
 go 1.25.0
 

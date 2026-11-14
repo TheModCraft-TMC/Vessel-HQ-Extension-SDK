@@ -6,7 +6,7 @@ import (
 	"math"
 	"unicode/utf8"
 
-	v1 "github.com/TheModCraft-TMC/Vessel-HQ/sdk/go/proto/v1"
+	v1 "github.com/TheModCraft-TMC/Vessel-HQ-Extension-SDK/proto/v1"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 )
